@@ -1,4 +1,5 @@
 import Component from './Component';
+import App from '../components/App';
 import { bindAll, isEqualPaths, extractUrlParams } from '../utils/';
 
 class Router extends Component {
@@ -10,10 +11,13 @@ class Router extends Component {
     this.state = {
       routes,
       currentRoute: null,
-      currentComponent: null
+      currentComponent: null,
+      login: false
     };
 
     this.host = host;
+
+    this.app = new App;
 
     bindAll(this, 'hadleHashChange', 'handleLogin');
 
@@ -27,14 +31,7 @@ class Router extends Component {
 
   hadleHashChange(path) {
     const { routes, currentRoute } = this.state;
-    const nextRoute = routes.find( ({ href }) => { 
-      console.log(isEqualPaths(href, path));
-      console.log(href);
-      console.log(path);
-      return isEqualPaths(href, path)
-    });
-    console.log(nextRoute);
-    console.log(currentRoute);
+    const nextRoute = routes.find( ({ href }) => isEqualPaths(href, path));
 
     if(nextRoute && nextRoute !== currentRoute) {
       
@@ -48,7 +45,7 @@ class Router extends Component {
 
       this.updateState({
         currentRoute: nextRoute,
-        currentComponent: new nextRoute.component(),
+        currentComponent: nextRoute.component,
       });
 
       console.log(this.state);
@@ -66,9 +63,11 @@ class Router extends Component {
   render() {
     const { currentRoute, currentComponent } = this.state;
 
-    return currentComponent.update({ 
+
+    return this.app.update({ 
+      currentComponent,
       callback: this.handleLogin,
-      params: extractUrlParams(currentRoute.href, this.path),
+      params: extractUrlParams(currentRoute.href, this.path)
     });
   }
 

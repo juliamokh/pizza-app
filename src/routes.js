@@ -1,17 +1,34 @@
-import List from './components/List';
+import Queue from './components/Queue';
+import LoginForm from './components/LoginForm';
+import SignupForm from './components/SignupForm';
 
 export default [
   {
     href: '',
-    redirectTo: '/list',
+    redirectTo: '/queue',
   },
   {
     href: '/',
-    redirectTo: '/list',
+    redirectTo: '/queue',
   },
   {
-    href: '/list',
-    component: List,
+    href: '/login',
+    component: LoginForm,
+  },
+  {
+    href: '/signup',
+    component: SignupForm,
+  },
+  {
+    href: '/queue',
+    component: Queue,
+    onEnter: (navigateTo, { login }) => {
+      if (!login) {
+        navigateTo('/login');
+        return false;
+      }
+      else return;
+    }
   },
   // {
   //   href: '/list/:id',
