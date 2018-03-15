@@ -1,12 +1,12 @@
-import Component from '../blackbox';
+import Component from '../../blackbox';
 
-import Header from './Header';
-import Footer from './Footer';
+import Header from '../header';
+import Footer from '../footer';
 
-import '../styles/reset.css';
-import '../styles/app.css';
+import './reset.css';
+import './app.css';
 
-import { bindAll } from '../utils';
+import { bindAll } from '../../utils';
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +16,8 @@ class App extends Component {
     this.footer = new Footer;
 
     this.main = null;
+
+    bindAll(this, 'handleLogin');
   }
 
   update(nextProps) {
@@ -27,11 +29,19 @@ class App extends Component {
     return this._render();
   }
 
+  handleLogin() {
+    const { onLogin } = this.props;
+    onLogin();
+  }
+
   render() {
     if (this.main) {
+      this.main.host.classList.add('page-main');
       return [
         this.header.update(),
-        this.main.update(),
+        this.main.update({
+          onLogin: this.handleLogin
+        }),
         this.footer.update()
       ];
     }

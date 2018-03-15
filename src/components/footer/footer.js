@@ -1,4 +1,6 @@
-import Component from '../blackbox';
+import Component from '../../blackbox';
+
+import './footer.css';
 
 class Footer extends Component {
   constructor() {

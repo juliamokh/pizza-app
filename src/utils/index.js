@@ -16,12 +16,7 @@ const urlToRegExp = url => RegExp(`^${url.replace(URL_PARAM_REGEXP, '(.*)')}$`);
 
 const isUrlParam = path => URL_PARAM_REGEXP.test(path);
 
-export const isEqualPaths = (template, url) => {
-  console.log(urlToRegExp(template));
-  console.log(url);
-  console.log(urlToRegExp(template).test(url));
-  return urlToRegExp(template).test(url);
-};
+export const isEqualPaths = (template, url) => urlToRegExp(template).test(url);
 
 export const extractUrlParams = (template, url) => {
   const values = url.split('/');

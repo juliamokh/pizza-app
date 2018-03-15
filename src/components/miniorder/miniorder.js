@@ -1,8 +1,9 @@
-import Component from '../blackbox';
+import Component from '../../blackbox';
 
-import pizza from '../img/pizza.png';
+import './miniorder.css';
+import pizza from './pizza.png';
 
-class Order extends Component {
+class MiniOrder extends Component {
   constructor(props) {
     super(props);
     this.host.classList.add('order');
@@ -23,4 +24,4 @@ class Order extends Component {
   }
 };
 
-export default Order;
+export default MiniOrder;

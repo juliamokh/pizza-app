@@ -1,8 +1,10 @@
-import Component from '../blackbox';
+import Component from '../../blackbox';
 
-import logo from '../img/logo.svg';
-import iconAdd from '../img/iconAdd.svg';
-import { bindAll } from '../utils';
+import './header.css';
+import logo from './logo.svg';
+import iconAdd from './iconAdd.svg';
+
+import { bindAll } from '../../utils';
 
 class Header extends Component {
   constructor() {
@@ -18,17 +20,16 @@ class Header extends Component {
         <i class="far fa-clock"></i>
         <time datetime="2017-02-01T00:00:00">00:00:00</time>
       </div>
-      <div class="title">
+      <a href="#/queue" class="title">
         <img src="${logo}" alt="logo">
         <h1>Pizza Queue</h1>
-      </div>
+      </a>
       <nav class="btn-wrapper">
-        <button class="btn btn-add" type="button">
+        <a href="#" class="btn btn-add" title="Add new pizza">
           <img src="${iconAdd}" alt="">
-        </button>
-        <a href="#/login" class="btn btn-login" type="button" aria-label="login / signup">
+        </a>
+        <a href="#/login" class="btn btn-login" title="Log in / Sign up">
           <i class="fas fa-sign-in-alt"></i>
-          <span>Log in / Sign up</span>
         </a>
       </nav>
     `

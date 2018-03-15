@@ -1,5 +1,5 @@
 import Component from './Component';
-import App from '../components/App';
+import App from '../components/app';
 import { bindAll, isEqualPaths, extractUrlParams } from '../utils/';
 
 class Router extends Component {
@@ -12,7 +12,7 @@ class Router extends Component {
       routes,
       currentRoute: null,
       currentComponent: null,
-      login: false
+      isLogin: true
     };
 
     this.host = host;
@@ -56,8 +56,8 @@ class Router extends Component {
     window.location.hash = url;
   }
 
-  handleLogin(login) {
-    this.updateState({ login });
+  handleLogin() {
+    this.updateState({ isLogin: true });
   }
 
   render() {
@@ -66,7 +66,7 @@ class Router extends Component {
 
     return this.app.update({ 
       currentComponent,
-      callback: this.handleLogin,
+      onLogin: this.handleLogin,
       params: extractUrlParams(currentRoute.href, this.path)
     });
   }

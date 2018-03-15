@@ -1,6 +1,6 @@
-import Queue from './components/Queue';
-import LoginForm from './components/LoginForm';
-import SignupForm from './components/SignupForm';
+import Queue from './components/queue';
+import LoginForm from './components/login';
+import SignupForm from './components/signup';
 
 export default [
   {
@@ -22,8 +22,8 @@ export default [
   {
     href: '/queue',
     component: Queue,
-    onEnter: (navigateTo, { login }) => {
-      if (!login) {
+    onEnter: (navigateTo, { isLogin }) => {
+      if (!isLogin) {
         navigateTo('/login');
         return false;
       }

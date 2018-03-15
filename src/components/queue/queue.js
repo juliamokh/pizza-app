@@ -1,14 +1,15 @@
-import Component from '../blackbox';
-import Order from './Order';
+import Component from '../../blackbox';
+import MiniOrder from '../miniorder';
 
-import iconAdd from '../img/iconAdd.svg';
+import './queue.css';
+
+import iconAdd from './iconAdd.svg';
 
 class Queue extends Component {
   constructor() {
     super();
 
-    this.host = document.createElement('main');
-    this.host.classList.add('page-main');
+    this.host.classList.add('queue-container');
 
     this.queue = document.createElement('section');
     this.queue.classList.add('queue');
@@ -16,8 +17,8 @@ class Queue extends Component {
 
   getQueue() {
     const list = [];
-    for (let i = 0; i < 9; i++) {
-      const order = new Order();
+    for (let i = 0; i < 8; i++) {
+      const order = new MiniOrder();
       list.push(order.update({ index: i + 1 }));
     }
     return this.insertChildren(list, this.queue);
@@ -25,10 +26,10 @@ class Queue extends Component {
 
   render() {
     return [`
-      <button class="btn btn-add" type="button">
-        <img src="${iconAdd}" alt="" width="40px">
+      <a href="#" class="btn btn-add">
+        <img src="${iconAdd}" alt="">
         Add new pizza
-      </button>
+      </a>
     `,
     this.getQueue()]
   }

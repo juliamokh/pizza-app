@@ -1,0 +1,51 @@
+.queue-container .btn {
+  width: 300px;
+  margin: 20px auto 30px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  color: #1f2230;
+  background: #f2b632;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold; 
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: -1px 1px 8px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}
+
+.queue-container .btn img {
+  width: 35px;
+  margin-right: 10px;
+}
+
+.queue-container .btn:hover,
+.queue-container .btn:focus {
+    background: #f5cb5c;
+    box-shadow: -2px 2px 16px rgba(0, 0, 0, 0.8);
+    outline: none;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+.queue-container .btn:active {
+    background: #e8dcb9;
+    box-shadow: -4px 4px 24px rgba(0, 0, 0, 0.8);
+    outline: none;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+.queue {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 30px;
+  justify-items: center;
+}
