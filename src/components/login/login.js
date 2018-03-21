@@ -19,6 +19,12 @@ class LoginForm extends Component {
     this.host.addEventListener('submit', this.handleSubmit);
   }
 
+  createErrorMessage(res) {
+    let errMsg = `${res.error}<br>`;
+    res.validations.forEach(item => errMsg += `${item}<br>`);
+    return errMsg
+  }
+
   handleSubmit(ev) {
     ev.preventDefault();
 
@@ -28,9 +34,11 @@ class LoginForm extends Component {
     }
 
     api.login(userData).then(res => {
-        if(res.success) navigateTo('#/queue')
-      }).catch(err => {
-        this.updateState({ error: err.message })
+        if (res.success) {
+          navigateTo('#/queue')
+        } else {
+          this.updateState({ error: this.createErrorMessage(res)})
+        }
       })
   }
 

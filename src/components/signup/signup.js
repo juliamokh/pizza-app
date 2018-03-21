@@ -8,7 +8,6 @@ class SignupForm extends Component {
     super();
 
     this.state = {
-      success: '',
       error: ''
     }
 
@@ -21,6 +20,12 @@ class SignupForm extends Component {
 
     bindAll(this, 'handleSubmit');
     this.host.addEventListener('submit', this.handleSubmit);
+  }
+
+  createErrorMessage(res) {
+    let errMsg = `${res.error}<br>`;
+    res.validations.forEach(item => errMsg += `${item}<br>`);
+    return errMsg
   }
 
   handleSubmit(ev) {
@@ -36,10 +41,10 @@ class SignupForm extends Component {
     }
 
     api.register(userData).then(res => {
-        if(res.success) {
-          this.updateState({ success: `Registration successful, please <a href="#/login">Log in</a>` })
+        if (res.success) {
+          this.renderSuccessMessage();
         } else {
-          this.updateState({ error: res.validations })
+          this.updateState({ error: this.createErrorMessage(res) })
         }
       })
   }
@@ -57,8 +62,23 @@ class SignupForm extends Component {
     )
   }
 
+  renderSuccessMessage() {
+    const success = `Registration successful, please <a href="#/login">log in</a>`;
+    this.clearChildren(this.host)
+    return this.insertChildren(`
+      <div class ="success-message">
+        <h2>Registration successful</h2>
+        <a href="#/login" class="btn btn-login">
+          <i class="fas fa-sign-in-alt"></i>
+          Log in
+        </a>
+      </div>
+    `,
+    this.host)
+  }
+
   render() {
-    const { success, error } = this.state;
+    const { error } = this.state;
 
     return [`
       <input type="email" name="email" placeholder="Email" class="input-line">
@@ -69,9 +89,6 @@ class SignupForm extends Component {
       this.select,
       `
       <input type="password" name="store_password" placeholder="Store's password" class="input-line">
-      <div class ="success-message">
-        ${success}
-      </div>
       <div class ="error-message">
         ${error}
       </div>
