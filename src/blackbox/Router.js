@@ -1,32 +1,29 @@
 import Component from './Component';
-import App from '../components/app';
-import { bindAll, isEqualPaths, extractUrlParams } from '../utils/';
+import { bindAll, isEqualPaths, extractUrlParams } from './utils';
 
 class Router extends Component {
   constructor(props) {
-    super(props);
+    super();
 
-    const { host, routes } = props;
+    const { App, host, routes } = props;
 
     this.state = {
       routes,
       currentRoute: null,
       currentComponent: null,
-      isLogin: true
-    };
+    }
 
     this.host = host;
 
     this.app = new App;
 
-    bindAll(this, 'hadleHashChange', 'handleLogin');
-
+    bindAll(this, 'hadleHashChange');
     window.addEventListener('hashchange', () => this.hadleHashChange(this.path));
     this.hadleHashChange(this.path);
   }
 
   get path() {
-    return window.location.hash.slice(1);
+    return window.location.hash.slice(1)
   }
 
   hadleHashChange(path) {
@@ -36,19 +33,17 @@ class Router extends Component {
     if(nextRoute && nextRoute !== currentRoute) {
       
       if(nextRoute.onEnter) {
-        nextRoute.onEnter(this.navigateTo, this.state);
-      };
+        nextRoute.onEnter()
+      }
 
       if(nextRoute.redirectTo) {
-        return this.navigateTo(nextRoute.redirectTo);
-      };
+        return this.navigateTo(nextRoute.redirectTo)
+      }
 
       this.updateState({
         currentRoute: nextRoute,
         currentComponent: nextRoute.component,
-      });
-
-      console.log(this.state);
+      })
     }
   }
 
@@ -56,21 +51,16 @@ class Router extends Component {
     window.location.hash = url;
   }
 
-  handleLogin() {
-    this.updateState({ isLogin: true });
-  }
-
   render() {
     const { currentRoute, currentComponent } = this.state;
-
-
+ 
     return this.app.update({ 
       currentComponent,
-      onLogin: this.handleLogin,
       params: extractUrlParams(currentRoute.href, this.path)
-    });
+    })
   }
+}
 
-};
+export const navigateTo = url => window.location.hash = url;
 
 export default Router;

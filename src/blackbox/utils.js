@@ -8,7 +8,7 @@ export const bindAll = (context, ...names) => {
       );
     }
   });
-};
+}
 
 const URL_PARAM_REGEXP = /:\w+/g;
 
@@ -23,13 +23,13 @@ export const extractUrlParams = (template, url) => {
   const params = {};
   
   if (!values) {
-    return params;
+    return params
   }
   return template.split('/').reduce((acc, param, index) => {
     if (!isUrlParam(param)) {
-      return acc;
+      return acc
     }
     acc[param.slice(1)] = values[index];
-    return acc;
-  }, params);
-};
+    return acc
+  }, params)
+}

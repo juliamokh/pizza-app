@@ -1,6 +1,9 @@
-import Queue from './components/queue';
 import LoginForm from './components/login';
 import SignupForm from './components/signup';
+import User from './components/user';
+import Queue from './components/queue';
+import { navigateTo } from './blackbox/Router';
+import { api } from './Api';
 
 export default [
   {
@@ -14,31 +17,50 @@ export default [
   {
     href: '/login',
     component: LoginForm,
+    onEnter: () => {
+      if (api.isAuthorized) {
+        navigateTo('/user');
+        return false
+      }
+      else return
+    }
   },
   {
     href: '/signup',
     component: SignupForm,
+    onEnter: () => {
+      if (api.isAuthorized) {
+        navigateTo('/user');
+        return false
+      }
+      else return
+    }
+  },
+  {
+    href: '/logout',
+    onEnter: () => api.logout(),
+    redirectTo: '/login',
+  },
+  {
+    href: '/user',
+    component: User,
+    onEnter: () => {
+      if (!api.isAuthorized) {
+        navigateTo('/login');
+        return false
+      }
+      else return
+    }
   },
   {
     href: '/queue',
     component: Queue,
-    onEnter: (navigateTo, { isLogin }) => {
-      if (!isLogin) {
+    onEnter: () => {              
+      if (!api.isAuthorized()) {
         navigateTo('/login');
-        return false;
+        return false
       }
-      else return;
+      else return
     }
-  },
-  // {
-  //   href: '/list/:id',
-  //   component: List,
-  //   onEnter: (navigateTo, { login }) => {
-  //     if (!users.some((el) => el === login)) {
-  //       navigateTo('/login');
-  //       return false;
-  //     }
-  //     else return;
-  //   }
-  // }
-];
+  }
+]

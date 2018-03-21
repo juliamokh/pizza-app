@@ -1,4 +1,4 @@
-.order {
+.order-card {
   width: 300px;
   display: flex;
   flex-direction: column;
@@ -9,11 +9,11 @@
   box-shadow: -1px 1px 8px rgba(0, 0, 0, 0.6);
 }
 
-.order img {
+.order-card img {
   width: 260px;
 }
 
-.order .details {
+.order-card .details {
   display: grid;
   grid-template: repeat(2, 1fr) / repeat(2, 1fr);
   grid-gap: 15px;

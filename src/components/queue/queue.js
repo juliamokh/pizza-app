@@ -1,9 +1,9 @@
 import Component from '../../blackbox';
-import MiniOrder from '../miniorder';
 
-import './queue.css';
+import OrderCard from '../ordercard';
 
 import iconAdd from './iconAdd.svg';
+import './queue.css';
 
 class Queue extends Component {
   constructor() {
@@ -18,7 +18,7 @@ class Queue extends Component {
   getQueue() {
     const list = [];
     for (let i = 0; i < 8; i++) {
-      const order = new MiniOrder();
+      const order = new OrderCard();
       list.push(order.update({ index: i + 1 }));
     }
     return this.insertChildren(list, this.queue);

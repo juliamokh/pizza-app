@@ -1,6 +1,26 @@
-.queue-container .btn {
-  width: 300px;
-  margin: 0 auto 30px auto;
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 50px;
+  font-size: 18px;
+}
+
+.user-info h2 {
+  align-self: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.user-info p {
+  margin-bottom: 10px;
+  color: #e8dcb9;
+}
+
+.user-info .btn {
+  margin: 20px auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,33 +39,15 @@
   transition: all .2s ease;
 }
 
-.queue-container .btn img {
-  width: 35px;
+.user-info .btn .fa-sign-out-alt {
   margin-right: 10px;
 }
 
-.queue-container .btn:hover,
-.queue-container .btn:focus {
+.user-info  .btn:hover,
+.user-info  .btn:focus {
     background: #f5cb5c;
     box-shadow: -2px 2px 16px rgba(0, 0, 0, 0.8);
     outline: none;
     -webkit-transition: all .2s ease;
     transition: all .2s ease;
-}
-
-.queue-container .btn:active {
-    background: #e8dcb9;
-    box-shadow: -4px 4px 24px rgba(0, 0, 0, 0.8);
-    outline: none;
-    -webkit-transition: all .2s ease;
-    transition: all .2s ease;
-}
-
-.queue {
-  max-width: 1300px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 30px;
-  justify-items: center;
 }

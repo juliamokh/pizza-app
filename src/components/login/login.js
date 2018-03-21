@@ -1,29 +1,48 @@
 import Component from '../../blackbox';
-
+import { bindAll } from '../../blackbox/utils';
+import { navigateTo } from '../../blackbox/Router';
+import { api } from '../../Api';
 import './login.css';
-
-import { bindAll } from '../../utils/';
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      error: ''
+    }
+
     this.host = document.createElement('form');
     this.host.classList.add('login-form');
 
-    bindAll(this, 'handleLogin');
-    this.host.addEventListener('submit', this.handleLogin);
+    bindAll(this, 'handleSubmit');
+    this.host.addEventListener('submit', this.handleSubmit);
   }
 
-  handleLogin(ev) {
+  handleSubmit(ev) {
     ev.preventDefault();
-    const { onLogin } = this.props;
-    onLogin();
+
+    const userData = {
+      username: ev.target.username.value,
+      password: ev.target.password.value
+    }
+
+    api.login(userData).then(res => {
+        if(res.success) navigateTo('#/queue')
+      }).catch(err => {
+        this.updateState({ error: err.message })
+      })
   }
 
   render() {
+    const { error } = this.state;
+
     return `
-      <input type="text" placeholder="Username" class="input-line">
-      <input type="password" placeholder="Password" class="input-line">
+      <input name="username" type="text" placeholder="Username" class="input-line">
+      <input name="password" type="password" placeholder="Password" class="input-line">
+      <div class ="error-message">
+        ${error}
+      </div>
       <button type="submit" class="btn-login">Log In</button>
       <div class="text-container">
         Have No Account ? 
@@ -31,6 +50,6 @@ class LoginForm extends Component {
       </div>
     `
   }
-};
+}
 
 export default LoginForm;
