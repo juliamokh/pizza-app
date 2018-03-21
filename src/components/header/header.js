@@ -1,5 +1,4 @@
 import Component from '../../blackbox';
-import { bindAll } from '../../blackbox/utils';
 import { api } from '../../Api';
 import logo from './logo.svg';
 import iconAdd from './iconAdd.svg';
@@ -11,6 +10,29 @@ class Header extends Component {
 
     this.host = document.createElement('header');
     this.host.classList.add('page-header');
+
+    this.clock = document.createElement('div');
+    this.clock.classList.add('current-time');
+  }
+
+  onBeforeUpdate() {
+    setInterval(this.drawClock.bind(this), 1000)
+  }
+
+  drawClock() {
+    const time = new Date();
+    const prepareTime = item => item < 10 ? '0' + item : item;
+    const hours = prepareTime(time.getHours());
+    const minutes = prepareTime(time.getMinutes());
+    const seconds = prepareTime(time.getSeconds());
+
+    this.clearChildren(this.clock);
+    this.insertChildren(`
+        <i class="far fa-clock"></i>
+        <time>${hours}:${minutes}:${seconds}</time>
+      `, this.clock);
+
+    return this.clock
   }
 
   drawButtons() {
@@ -27,21 +49,19 @@ class Header extends Component {
       `
     } else {
       return `
-      <nav class="btn-wrapper">
-        <a href="#/login" class="btn btn-login" title="Log in / Sign up">
-          <i class="fas fa-sign-in-alt"></i>
-        </a>
-      </nav>
+        <nav class="btn-wrapper">
+          <a href="#/login" class="btn btn-login" title="Log in / Sign up">
+            <i class="fas fa-sign-in-alt"></i>
+          </a>
+        </nav>
       `
     }
   }
 
   render() {
-    return [`
-      <div class="current-time">
-        <i class="far fa-clock"></i>
-        <time datetime="2017-02-01T00:00:00">00:00:00</time>
-      </div>
+    return [
+      this.clock,
+    `
       <a href="#/queue" class="title">
         <img src="${logo}" alt="logo">
         <h1>Pizza Queue</h1>

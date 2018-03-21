@@ -20,6 +20,10 @@ class Component {
     return this._render()
   }
 
+  clearChildren(host = this.host) {
+    return host.innerHTML = ''
+  }
+
   insertChildren(children, host = this.host) {
     let node = host;
     if (typeof children === 'string') {

@@ -18,7 +18,7 @@ export default [
     href: '/login',
     component: LoginForm,
     onEnter: () => {
-      if (api.isAuthorized) {
+      if (api.isAuthorized()) {
         navigateTo('/user');
         return false
       }
@@ -29,7 +29,7 @@ export default [
     href: '/signup',
     component: SignupForm,
     onEnter: () => {
-      if (api.isAuthorized) {
+      if (api.isAuthorized()) {
         navigateTo('/user');
         return false
       }
@@ -45,7 +45,7 @@ export default [
     href: '/user',
     component: User,
     onEnter: () => {
-      if (!api.isAuthorized) {
+      if (!api.isAuthorized()) {
         navigateTo('/login');
         return false
       }

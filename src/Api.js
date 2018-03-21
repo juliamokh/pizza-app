@@ -8,11 +8,23 @@ class Api {
   }
 
   set token(requestToken) {
-    return localStorage.setItem('token', requestToken)
+    localStorage.setItem('token', requestToken)
+  }
+
+  get tokenExpiringDate() {
+    return new Date(localStorage.getItem('tokenExpiringDate'))
+  }
+
+  set tokenExpiringDate(requestToken) {
+    const currentDate = new Date();
+    const expiringTime = JSON.parse(atob(requestToken.split('.')[1])).exp;
+    const expiringDate = new Date(currentDate.getTime() + expiringTime);
+    localStorage.setItem('tokenExpiringDate', expiringDate)
   }
 
   isTokenExpire() {
-    return false
+    const currentDate = new Date();
+    return new Date() > this.tokenExpiringDate
   }
 
   isAuthorized() {
@@ -74,11 +86,10 @@ class Api {
 
   login(payload) {
     return this.post('user/login', payload).then(res => {
-      if (!res.success) {
-        throw new Error(res.error)
-      } else {
+      if (res.success) {
         this.token = res.token;
-      }
+        this.tokenExpiringDate = res.token;
+      } 
       return res
     })
   }
