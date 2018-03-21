@@ -23,7 +23,6 @@ class Api {
   }
 
   isTokenExpire() {
-    const currentDate = new Date();
     return new Date() > this.tokenExpiringDate
   }
 
